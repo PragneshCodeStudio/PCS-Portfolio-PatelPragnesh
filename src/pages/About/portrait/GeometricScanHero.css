@@ -1,0 +1,913 @@
+@reference "../../../index.css";
+
+@layer components {
+    .pp-geometric-scan-frame {
+        @apply relative mx-auto aspect-[1/1] w-full max-w-[1024px] shrink-0 bg-main-bg;
+        --pp-geometric-cell-size: 24px;
+        --pp-geometric-grid-gap: 3px;
+        --pp-geometric-scan-progress: 0%;
+        --pp-geometric-scan-position: calc(var(--pp-geometric-scan-start) + (var(--pp-geometric-scan-range) * var(--pp-geometric-scan-progress-number, 0)));
+        --pp-geometric-scan-start: 0%;
+        --pp-geometric-scan-range: 100%;
+    }
+
+    .pp-geometric-scan-frame::after {
+        @apply pointer-events-none absolute inset-0;
+        z-index: 5;
+        content: '';
+        background:
+            radial-gradient(circle at 50% 45%, transparent 0 52%, rgba(12, 12, 14, 0.18) 76%),
+            linear-gradient(180deg, rgba(12, 12, 14, 0.08), rgba(12, 12, 14, 0.3));
+    }
+
+    .pp-geometric-scan-portrait {
+        @apply pointer-events-none absolute inset-0 z-0 size-full object-contain object-center;
+        clip-path: inset(0 0 calc(100% - var(--pp-geometric-scan-position)) 0);
+    }
+
+    .pp-geometric-scan-icon-mask {
+        @apply pointer-events-none absolute inset-0 overflow-hidden;
+        z-index: 10;
+        clip-path: inset(var(--pp-geometric-scan-position) 0 0 0);
+        mask-image: var(--pp-geometric-mask-image);
+        mask-mode: alpha;
+        mask-position: center;
+        mask-repeat: no-repeat;
+        mask-size: contain;
+        -webkit-mask-image: var(--pp-geometric-mask-image);
+        -webkit-mask-mode: alpha;
+        -webkit-mask-position: center;
+        -webkit-mask-repeat: no-repeat;
+        -webkit-mask-size: contain;
+    }
+
+    .pp-geometric-scan-icon-mask::before {
+        @apply absolute inset-0;
+        content: '';
+        background: rgba(12, 12, 14, 0.98);
+    }
+
+    .pp-geometric-scan-grid {
+        @apply absolute left-1/2 top-1/2 z-10 grid w-max -translate-x-1/2 -translate-y-1/2 p-0;
+        gap: var(--pp-geometric-grid-gap);
+        grid-template-rows: repeat(var(--pp-geometric-grid-rows), var(--pp-geometric-cell-size));
+        grid-template-columns: repeat(var(--pp-geometric-grid-columns), var(--pp-geometric-cell-size));
+    }
+
+    .pp-geometric-scan-cell {
+        @apply grid place-items-center;
+        width: var(--pp-geometric-cell-size);
+        height: var(--pp-geometric-cell-size);
+        background: rgba(24, 24, 28, 0.98);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        color: rgba(190, 198, 213, 0.9);
+    }
+
+    .pp-geometric-scan-cell svg {
+        @apply size-[64%] max-h-6 max-w-6;
+        stroke: currentColor;
+        transform-origin: center;
+        transform-box: fill-box;
+    }
+
+    .pp-geometric-scan-cell svg * {
+        transform-box: fill-box;
+        transform-origin: center;
+    }
+
+    .pp-geometric-scan-cell.pp-geo-icon-accent {
+        background: rgba(32, 164, 243, 0.13);
+        border-color: rgba(32, 164, 243, 0.52);
+        color: rgba(32, 164, 243, 0.95);
+    }
+
+    .pp-geo-icon-menu svg {
+        animation: pp-geo-menu-reorder 2800ms ease-in-out infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-sparkles svg {
+        animation: pp-geo-sparkles-bloom 2200ms ease-in-out infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-layout-dashboard svg {
+        animation: pp-geo-dashboard-focus 3200ms ease-in-out infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-loader svg {
+        animation: pp-geo-loader-spin 3600ms linear infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-star svg {
+        animation: pp-geo-star-glint 2800ms ease-in-out infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-zap svg {
+        animation: pp-geo-zap-flash 1700ms steps(2, end) infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-layout-grid svg {
+        animation: pp-geo-grid-snap 3000ms ease-in-out infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-flame svg {
+        animation: pp-geo-flame-flicker 1600ms ease-in-out infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-sparkle svg {
+        animation: pp-geo-sparkle-shine 2400ms ease-in-out infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-workflow svg {
+        animation: pp-geo-workflow-connect 3000ms ease-in-out infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-car svg {
+        animation: pp-geo-car-cruise 2200ms ease-in-out infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-blocks svg {
+        animation: pp-geo-blocks-build 2600ms ease-in-out infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-audio-lines svg {
+        animation: pp-geo-audio-meter 1500ms ease-in-out infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-bot-message-square svg {
+        animation: pp-geo-bot-reply 2300ms steps(3, end) infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-chart-pie svg {
+        animation: pp-geo-chart-fill 3400ms ease-in-out infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-utensils svg {
+        animation: pp-geo-utensils-set 2400ms ease-in-out infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-component svg {
+        animation: pp-geo-component-align 2600ms ease-in-out infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-hat-glasses svg {
+        animation: pp-geo-hat-inspect 3100ms ease-in-out infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-clock-fading svg {
+        animation: pp-geo-clock-step 3200ms steps(8, end) infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-minimize svg {
+        animation: pp-geo-minimize-fold 2800ms ease-in-out infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-container svg {
+        animation: pp-geo-container-frame 3000ms ease-in-out infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-pyramid svg {
+        animation: pp-geo-pyramid-level 3200ms ease-in-out infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-radius svg {
+        animation: pp-geo-radius-corner 2600ms ease-in-out infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-activity svg {
+        animation: pp-geo-activity-wave 1500ms ease-in-out infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-disc svg {
+        animation: pp-geo-disc-groove 4200ms linear infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-eject svg {
+        animation: pp-geo-eject-release 2600ms ease-in-out infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-infinity svg {
+        animation: pp-geo-infinity-loop 3000ms ease-in-out infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-shell svg {
+        animation: pp-geo-shell-open 3400ms ease-in-out infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-stone svg {
+        animation: pp-geo-stone-settle 3600ms ease-in-out infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-compass svg {
+        animation: pp-geo-compass-search 3000ms ease-in-out infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-locate svg {
+        animation: pp-geo-locate-lock 2400ms ease-in-out infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-cctv svg {
+        animation: pp-geo-cctv-pan 2800ms ease-in-out infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-swatch-book svg {
+        animation: pp-geo-swatch-open 3200ms ease-in-out infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-omega svg {
+        animation: pp-geo-omega-weight 3000ms ease-in-out infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-lens-convex svg {
+        animation: pp-geo-lens-focus 2600ms ease-in-out infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-orbit svg {
+        animation: pp-geo-orbit-track 3600ms linear infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-bomb svg {
+        animation: pp-geo-bomb-arm 2300ms ease-in-out infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-shapes svg {
+        animation: pp-geo-shapes-arrange 3000ms ease-in-out infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-binary svg {
+        animation: pp-geo-binary-swap 1900ms steps(4, end) infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-code svg {
+        animation: pp-geo-code-type 2600ms ease-in-out infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-code-xml svg {
+        animation: pp-geo-code-xml-parse 2800ms ease-in-out infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-paint-roller svg {
+        animation: pp-geo-paint-stroke 2600ms ease-in-out infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-rainbow svg {
+        animation: pp-geo-rainbow-sweep 3000ms ease-in-out infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geo-icon-circle-dashed svg {
+        animation: pp-geo-circle-dashed-draw 3400ms linear infinite;
+        animation-delay: var(--pp-geometric-icon-delay);
+    }
+
+    .pp-geometric-scan-line {
+        @apply pointer-events-none absolute inset-x-0 h-px;
+        z-index: 20;
+        top: clamp(0.5px, var(--pp-geometric-scan-position), calc(100% - 0.5px));
+        transform: translateY(-50%);
+        background: transparent;
+        box-shadow: none;
+    }
+
+    .pp-geometric-scan-line span {
+        @apply absolute left-[6%] right-[6%] top-1/2 h-px -translate-y-1/2 bg-accent;
+        box-shadow: none;
+    }
+
+    @media (min-width: 640px) {
+        .pp-geometric-scan-frame {
+            --pp-geometric-cell-size: 28px;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .pp-geometric-scan-frame {
+            --pp-geometric-cell-size: 32px;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .pp-geometric-scan-frame {
+            --pp-geometric-cell-size: 32px;
+        }
+    }
+}
+
+@keyframes pp-geo-menu-reorder {
+
+    0%,
+    100% {
+        stroke-dasharray: 18 0;
+    }
+
+    42% {
+        stroke-dasharray: 7 4;
+    }
+
+    72% {
+        stroke-dasharray: 13 2;
+    }
+}
+
+@keyframes pp-geo-sparkles-bloom {
+
+    0%,
+    100% {
+        transform: scale(0.9);
+        opacity: 0.7;
+    }
+
+    45% {
+        transform: scale(1.16);
+        opacity: 1;
+    }
+}
+
+@keyframes pp-geo-dashboard-focus {
+
+    0%,
+    100% {
+        opacity: 0.72;
+    }
+
+    34% {
+        opacity: 1;
+        filter: drop-shadow(0 0 4px currentColor);
+    }
+
+    68% {
+        opacity: 0.86;
+    }
+}
+
+@keyframes pp-geo-loader-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pp-geo-star-glint {
+
+    0%,
+    100% {
+        opacity: 0.74;
+        stroke-width: 1.8;
+    }
+
+    50% {
+        opacity: 1;
+        stroke-width: 2.6;
+    }
+}
+
+@keyframes pp-geo-zap-flash {
+
+    0%,
+    100% {
+        opacity: 0.68;
+        filter: none;
+    }
+
+    50% {
+        opacity: 1;
+        filter: drop-shadow(0 0 5px currentColor);
+    }
+}
+
+@keyframes pp-geo-grid-snap {
+
+    0%,
+    100% {
+        stroke-dasharray: 16 0;
+    }
+
+    45% {
+        stroke-dasharray: 3 2;
+    }
+
+    70% {
+        stroke-dasharray: 12 1;
+    }
+}
+
+@keyframes pp-geo-flame-flicker {
+
+    0%,
+    100% {
+        transform: skewX(0deg) scaleY(1);
+    }
+
+    35% {
+        transform: skewX(-4deg) scaleY(1.08);
+    }
+
+    70% {
+        transform: skewX(3deg) scaleY(0.96);
+    }
+}
+
+@keyframes pp-geo-sparkle-shine {
+
+    0%,
+    100% {
+        transform: scale(0.96);
+        opacity: 0.72;
+    }
+
+    30% {
+        transform: scale(1.18);
+        opacity: 1;
+    }
+
+    60% {
+        transform: scale(0.98);
+        opacity: 0.86;
+    }
+}
+
+@keyframes pp-geo-workflow-connect {
+
+    0%,
+    100% {
+        stroke-dasharray: 2 8;
+        stroke-dashoffset: 0;
+    }
+
+    50% {
+        stroke-dasharray: 10 2;
+        stroke-dashoffset: -8;
+    }
+}
+
+@keyframes pp-geo-car-cruise {
+
+    0%,
+    100% {
+        transform: translateX(-1px);
+    }
+
+    50% {
+        transform: translateX(1px);
+    }
+}
+
+@keyframes pp-geo-blocks-build {
+
+    0%,
+    100% {
+        stroke-dasharray: 4 4;
+    }
+
+    50% {
+        stroke-dasharray: 14 1;
+    }
+}
+
+@keyframes pp-geo-audio-meter {
+
+    0%,
+    100% {
+        transform: scaleY(0.78);
+    }
+
+    35% {
+        transform: scaleY(1.16);
+    }
+
+    70% {
+        transform: scaleY(0.94);
+    }
+}
+
+@keyframes pp-geo-bot-reply {
+
+    0%,
+    100% {
+        opacity: 0.62;
+    }
+
+    33% {
+        opacity: 1;
+    }
+
+    66% {
+        opacity: 0.78;
+    }
+}
+
+@keyframes pp-geo-chart-fill {
+
+    0%,
+    100% {
+        stroke-dasharray: 5 7;
+    }
+
+    50% {
+        stroke-dasharray: 13 1;
+    }
+}
+
+@keyframes pp-geo-utensils-set {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    45% {
+        transform: translateY(-1px);
+    }
+
+    70% {
+        transform: translateY(1px);
+    }
+}
+
+@keyframes pp-geo-component-align {
+
+    0%,
+    100% {
+        stroke-dasharray: 8 3;
+    }
+
+    45% {
+        stroke-dasharray: 2 5;
+    }
+
+    70% {
+        stroke-dasharray: 12 0;
+    }
+}
+
+@keyframes pp-geo-hat-inspect {
+
+    0%,
+    100% {
+        transform: translateY(0);
+        opacity: 0.76;
+    }
+
+    50% {
+        transform: translateY(-1px);
+        opacity: 1;
+    }
+}
+
+@keyframes pp-geo-clock-step {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pp-geo-minimize-fold {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(0.78);
+    }
+}
+
+@keyframes pp-geo-container-frame {
+
+    0%,
+    100% {
+        stroke-dasharray: 14 0;
+        opacity: 0.82;
+    }
+
+    50% {
+        stroke-dasharray: 6 5;
+        opacity: 1;
+    }
+}
+
+@keyframes pp-geo-pyramid-level {
+
+    0%,
+    100% {
+        transform: translateY(1px);
+        stroke-dasharray: 9 3;
+    }
+
+    50% {
+        transform: translateY(-1px);
+        stroke-dasharray: 14 0;
+    }
+}
+
+@keyframes pp-geo-radius-corner {
+
+    0%,
+    100% {
+        stroke-linecap: butt;
+    }
+
+    50% {
+        stroke-linecap: round;
+    }
+}
+
+@keyframes pp-geo-activity-wave {
+
+    0%,
+    100% {
+        stroke-dasharray: 4 4;
+        stroke-dashoffset: 0;
+    }
+
+    50% {
+        stroke-dasharray: 12 2;
+        stroke-dashoffset: -6;
+    }
+}
+
+@keyframes pp-geo-disc-turn {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pp-geo-eject-release {
+
+    0%,
+    100% {
+        transform: translateY(1px);
+    }
+
+    38% {
+        transform: translateY(-2px);
+    }
+
+    62% {
+        transform: translateY(-1px);
+    }
+}
+
+@keyframes pp-geo-infinity-loop {
+
+    0%,
+    100% {
+        stroke-dasharray: 5 5;
+        stroke-dashoffset: 0;
+    }
+
+    50% {
+        stroke-dasharray: 10 2;
+        stroke-dashoffset: -10;
+    }
+}
+
+@keyframes pp-geo-shell-open {
+
+    0%,
+    100% {
+        transform: scaleY(0.94);
+    }
+
+    50% {
+        transform: scaleY(1.08) translateY(-1px);
+    }
+}
+
+@keyframes pp-geo-stone-settle {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    35% {
+        transform: translateY(1px);
+    }
+
+    50% {
+        transform: translateY(2px);
+    }
+}
+
+@keyframes pp-geo-compass-search {
+
+    0%,
+    100% {
+        transform: rotate(-14deg);
+    }
+
+    50% {
+        transform: rotate(18deg);
+    }
+}
+
+@keyframes pp-geo-locate-lock {
+
+    0%,
+    100% {
+        stroke-dasharray: 4 6;
+        opacity: 0.78;
+    }
+
+    50% {
+        stroke-dasharray: 12 1;
+        opacity: 1;
+    }
+}
+
+@keyframes pp-geo-cctv-pan {
+
+    0%,
+    100% {
+        transform: skewX(-4deg);
+    }
+
+    50% {
+        transform: skewX(5deg);
+    }
+}
+
+@keyframes pp-geo-swatch-open {
+
+    0%,
+    100% {
+        transform: skewY(0deg);
+    }
+
+    50% {
+        transform: skewY(-7deg) translateX(1px);
+    }
+}
+
+@keyframes pp-geo-omega-weight {
+
+    0%,
+    100% {
+        transform: scaleY(1);
+    }
+
+    50% {
+        transform: scaleY(0.9) translateY(1px);
+    }
+}
+
+@keyframes pp-geo-lens-focus {
+
+    0%,
+    100% {
+        filter: brightness(1);
+        stroke-width: 1.8;
+    }
+
+    50% {
+        filter: brightness(1.28);
+        stroke-width: 2.5;
+    }
+}
+
+@keyframes pp-geo-orbit-track {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pp-geo-bomb-arm {
+
+    0%,
+    100% {
+        filter: none;
+    }
+
+    45% {
+        filter: drop-shadow(0 0 5px currentColor);
+    }
+
+    55% {
+        transform: scale(1.06);
+    }
+}
+
+@keyframes pp-geo-shapes-arrange {
+
+    0%,
+    100% {
+        stroke-dasharray: 7 3;
+    }
+
+    50% {
+        stroke-dasharray: 2 4;
+    }
+}
+
+@keyframes pp-geo-binary-swap {
+
+    0%,
+    100% {
+        opacity: 0.62;
+    }
+
+    25% {
+        opacity: 1;
+    }
+
+    75% {
+        opacity: 0.82;
+    }
+}
+
+@keyframes pp-geo-code-type {
+
+    0%,
+    100% {
+        stroke-dasharray: 3 5;
+    }
+
+    50% {
+        stroke-dasharray: 12 1;
+    }
+}
+
+@keyframes pp-geo-code-xml-parse {
+
+    0%,
+    100% {
+        stroke-dashoffset: 0;
+        stroke-dasharray: 4 4;
+    }
+
+    50% {
+        stroke-dashoffset: -8;
+        stroke-dasharray: 11 2;
+    }
+}
+
+@keyframes pp-geo-paint-stroke {
+
+    0%,
+    100% {
+        stroke-dasharray: 4 6;
+    }
+
+    50% {
+        stroke-dasharray: 14 0;
+    }
+}
+
+@keyframes pp-geo-rainbow-sweep {
+
+    0%,
+    100% {
+        filter: hue-rotate(0deg) brightness(1);
+    }
+
+    50% {
+        filter: hue-rotate(65deg) brightness(1.18);
+    }
+}
+
+@keyframes pp-geo-circle-dashed-draw {
+    to {
+        stroke-dashoffset: -22;
+    }
+}

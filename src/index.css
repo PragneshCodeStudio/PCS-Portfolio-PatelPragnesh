@@ -1,0 +1,413 @@
+@import "tailwindcss";
+
+/* START SITE FONT-FAMILYS */
+
+@font-face {
+    font-family: 'Teko';
+    src: url('./assets/fonts/Teko-Bold.woff2') format('woff2'),
+        url('./assets/fonts/Teko-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Teko';
+    src: url('./assets/fonts/Teko-Light.woff2') format('woff2'),
+        url('./assets/fonts/Teko-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Teko';
+    src: url('./assets/fonts/Teko-Medium.woff2') format('woff2'),
+        url('./assets/fonts/Teko-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Teko';
+    src: url('./assets/fonts/Teko-Regular.woff2') format('woff2'),
+        url('./assets/fonts/Teko-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Teko';
+    src: url('./assets/fonts/Teko-SemiBold.woff2') format('woff2'),
+        url('./assets/fonts/Teko-SemiBold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('./assets/fonts/Inter-Bold.woff2') format('woff2'),
+        url('./assets/fonts/Inter-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('./assets/fonts/Inter-LightBETA.woff2') format('woff2'),
+        url('./assets/fonts/Inter-LightBETA.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('./assets/fonts/Inter-Medium.woff2') format('woff2'),
+        url('./assets/fonts/Inter-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('./assets/fonts/Inter-Regular.woff2') format('woff2'),
+        url('./assets/fonts/Inter-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('./assets/fonts/Inter-SemiBold.woff2') format('woff2'),
+        url('./assets/fonts/Inter-SemiBold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'AgencyFB';
+    src: url('./assets/fonts/AgencyFB-Bold.woff2') format('woff2'),
+        url('./assets/fonts/AgencyFB-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* END SITE FONT-FAMILYS */
+
+
+
+
+
+
+/* START CUSTOM SCROLL BAR */
+
+*::-webkit-scrollbar {
+    width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #EEE
+}
+
+*::-webkit-scrollbar-thumb {
+    background: #222222;
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #222222 #EEE
+}
+
+/* END CUSTOM SCROLL BAR */
+
+
+
+
+
+
+
+@theme {
+
+    /* For Backgrounds */
+    --color-main-bg: #0c0c0e;
+    --color-section-bg: #111114;
+    --color-card-bg: #18181c;
+    --color-elevated-bg: #202026;
+
+    /* Text Colours */
+    --color-primary-text: #ffffff;
+    --color-secondary-text: #a0a0b0;
+    --color-muted-text: #606070;
+
+    /* Accent Colours */
+    --color-accent: #20a4f3;
+    --color-accent-hover: #0685ce;
+    --color-accent-subtle: rgba(77, 124, 255, 0.1);
+    --color-accent-border: rgba(77, 124, 255, 0.25);
+
+    /* Borders Colours */
+    --color-border: rgba(255, 255, 255, 0.06);
+    --color-border-strong: rgba(255, 255, 255, 0.12);
+    --color-border-accent: rgba(77, 124, 255, 0.4);
+
+    /* Status Colours*/
+    --color-success: #4dff91;
+    --color-warning: #ffcc4d;
+    --color-error: #ff4d4d;
+
+    /* Font Familys */
+    --font-heading: 'AgencyFB', sans-serif;
+    --font-body: 'Inter', sans-serif;
+
+    /* Transitions */
+
+    --transition-base: all 0.3s ease;
+    --transition-adv: all 0.3s cubic-bezier(.22, .24, 0, .77);
+
+    --spacing-sec-space: 80px;
+}
+
+
+
+
+
+
+
+@layer base {
+    body {
+        @apply leading-[140%];
+    }
+
+    section {
+        @apply py-sec-space w-full;
+    }
+
+    #smooth-content>*:nth-child(2n) {
+        @apply bg-section-bg;
+    }
+
+    p,
+    li {
+        @apply font-body text-base text-primary-text leading-[140%];
+    }
+
+    h1 {
+        @apply text-6xl lg:text-7xl xl:text-8xl;
+    }
+
+    h2 {
+        @apply text-3xl md:text-4xl xl:text-[40px];
+    }
+
+    h3 {
+        @apply text-[20px] xl:text-2xl;
+    }
+
+    h4 {
+        @apply text-[20px];
+    }
+
+    h5 {
+        @apply text-[18px];
+    }
+
+    h6 {
+        @apply text-base;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply font-heading text-primary-text leading-[110%] font-bold tracking-[0.1em] uppercase;
+    }
+
+    a {
+        @apply font-body text-base text-primary-text hover:text-accent transition leading-[140%];
+    }
+
+    header {
+        @apply transition;
+    }
+
+    html.pp-splash-scroll-lock,
+    body.pp-splash-scroll-lock {
+        overscroll-behavior: none;
+    }
+
+    .pp-footer-logo {
+        transform: translateZ(0);
+        backface-visibility: hidden;
+    }
+}
+
+
+
+
+
+
+
+@layer components {
+    .pp-container {
+        @apply w-full md:w-[95%] max-w-[1328px] mx-auto px-5 md:px-6;
+    }
+
+    .pp-sec-head {
+        @apply mb-8 w-full;
+    }
+
+    .pp-sec-head-row {
+        @apply mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between;
+    }
+
+    .border-box {
+        @apply relative border border-border;
+    }
+
+    .pp-section-eyebrow {
+        @apply mb-1 md:mb-1.5 text-sm font-semibold uppercase tracking-[0.2em] text-accent;
+    }
+
+    .border-box::before,
+    .border-btn::before {
+        content: '';
+        position: absolute;
+        inset: -1px;
+        z-index: 11;
+        pointer-events: none;
+        background-repeat: no-repeat;
+        transition: all 0.3s cubic-bezier(.02, .89, .49, .92);
+        background-size: 10px 2px, 10px 2px, 10px 2px, 10px 2px, 2px 10px, 2px 10px, 2px 10px, 2px 10px;
+        background-position: top left, top right, bottom left, bottom right, top left, top right, bottom left, bottom right;
+        background-image:
+            linear-gradient(var(--color-white), var(--color-white)),
+            linear-gradient(var(--color-white), var(--color-white)),
+            linear-gradient(var(--color-white), var(--color-white)),
+            linear-gradient(var(--color-white), var(--color-white)),
+            linear-gradient(var(--color-white), var(--color-white)),
+            linear-gradient(var(--color-white), var(--color-white)),
+            linear-gradient(var(--color-white), var(--color-white)),
+            linear-gradient(var(--color-white), var(--color-white));
+    }
+
+    .border-btn {
+        --border-btn-rest-size: calc(100% - 16px) 2px, 8px 2px, 8px 2px, calc(100% - 16px) 2px, 2px 8px, 2px calc(100% - 16px), 2px calc(100% - 16px), 2px 8px;
+        --border-btn-hover-size: 10px 2px, 10px 2px, 10px 2px, 10px 2px, 2px 10px, 2px 10px, 2px 10px, 2px 10px;
+    }
+
+    .border-btn--filled {
+        --border-btn-rest-size: 10px 2px, 10px 2px, 10px 2px, 10px 2px, 2px 10px, 2px 10px, 2px 10px, 2px 10px;
+        --border-btn-hover-size: calc(100% - 16px) 2px, 8px 2px, 8px 2px, calc(100% - 16px) 2px, 2px 8px, 2px calc(100% - 16px), 2px calc(100% - 16px), 2px 8px;
+    }
+
+    .border-btn::before {
+        background-size: var(--border-btn-rest-size);
+    }
+
+    .border-btn:hover::before {
+        background-size: var(--border-btn-hover-size);
+    }
+
+    .pp-first-sec {
+        padding-top: calc(var(--spacing-sec-space) *2);
+    }
+
+    html.pp-splash-scroll-lock .pp-navbar {
+        padding-right: var(--pp-scrollbar-gap, 0px);
+    }
+
+    .pp-experience-step {
+        @apply relative z-10 grid size-[38px] place-items-center border border-border bg-main-bg font-body text-sm font-semibold text-muted-text transition duration-500;
+    }
+
+    .pp-experience-step.pp-active {
+        @apply border-accent text-accent;
+    }
+
+    .pp-home-experience-card.pp-active {
+        @apply border-border-strong bg-card-bg;
+    }
+
+    .pp-logo-marquee-mask {
+        overflow: hidden;
+        mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+    }
+
+    .pp-logo-marquee-scroll {
+        display: flex;
+        width: max-content;
+        will-change: transform;
+    }
+
+    .pp-logo-marquee-track {
+        display: flex;
+        flex: 0 0 auto;
+        width: max-content;
+        gap: 1rem;
+        padding-right: 1rem;
+        will-change: transform;
+    }
+
+    .pp-logo-marquee-card {
+        @apply flex min-w-[128px] md:min-w-[160px] items-center justify-center gap-3 border border-border bg-card-bg/80 p-4 md:px-5 md:py-4 text-primary-text transition duration-300;
+    }
+
+    .pp-logo-marquee-card:hover {
+        @apply border-border-strong bg-elevated-bg;
+    }
+
+    .pp-logo-marquee-card span {
+        @apply font-body text-sm font-semibold text-primary-text;
+    }
+
+    .pp-projects-swiper,
+    .pp-skills-swiper {
+        @apply overflow-visible;
+    }
+
+    .pp-projects-swiper .swiper-wrapper,
+    .pp-skills-swiper .swiper-wrapper {
+        @apply items-stretch;
+    }
+
+    .pp-projects-slider-nav.swiper-button-disabled,
+    .pp-skills-slider-nav.swiper-button-disabled {
+        @apply pointer-events-none opacity-30;
+    }
+}
+
+@layer utilities {
+    .pp-navbar-link.pp-active-link {
+        @apply text-accent font-bold;
+    }
+}
+
+/* START RESPONSIVE DESOGN CODE */
+@media screen and (max-width: 1280px) {
+    :root {
+        --spacing-sec-space: 64px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    :root {
+        --spacing-sec-space: 48px;
+    }
+
+    .pp-first-sec {
+        padding-top: calc(var(--spacing-sec-space) * 2 + 24px);
+    }
+}
+
+/* END RESPONSIVE DESOGN CODE */
