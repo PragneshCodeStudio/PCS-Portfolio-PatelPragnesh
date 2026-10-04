@@ -23,12 +23,17 @@ const AnimatedCounter = ({
   delay = 0.2,
   ease = 'power3.out',
   rootMargin = '0px 0px -12% 0px',
+  direction = 'up',
+  startOnMount = false,
+  onComplete,
 }) => {
   const { target, targetText = '', suffix, isNumeric } = useMemo(() => parseCounterValue(value), [value])
+  const isDownward = direction === 'down'
   const elementRef = useRef(null)
   const reelRefs = useRef([])
   const hasStartedRef = useRef(false)
   const isVisibleRef = useRef(false)
+  const onCompleteRef = useRef(onComplete)
   const reels = useMemo(() => {
     if (!isNumeric) {
       return []
@@ -46,9 +51,13 @@ const AnimatedCounter = ({
 
       values.push(Number(digit))
 
-      return values
+      return isDownward ? values.reverse() : values
     })
-  }, [isNumeric, targetText])
+  }, [isDownward, isNumeric, targetText])
+
+  useEffect(() => {
+    onCompleteRef.current = onComplete
+  }, [onComplete])
 
   useEffect(() => {
     const element = elementRef.current
@@ -64,18 +73,25 @@ const AnimatedCounter = ({
       return undefined
     }
 
+    hasStartedRef.current = false
+    isVisibleRef.current = false
+
+    const getRollOffset = (reel) => `-${Number(reel.dataset.rollDistance || 0)}em`
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
     if (prefersReducedMotion) {
       reelElements.forEach((reel) => {
         gsap.set(reel, {
-          y: `-${Number(reel.dataset.rollDistance || 0)}em`,
+          y: isDownward ? '0em' : getRollOffset(reel),
         })
       })
+      onCompleteRef.current?.()
       return undefined
     }
 
-    gsap.set(reelElements, { y: '0em' })
+    gsap.set(reelElements, {
+      y: (_, reel) => isDownward ? getRollOffset(reel) : '0em',
+    })
 
     const runCounter = () => {
       if (hasStartedRef.current || !isVisibleRef.current) {
@@ -83,17 +99,28 @@ const AnimatedCounter = ({
       }
 
       hasStartedRef.current = true
+      let completedReels = 0
 
       reelElements.forEach((reel, index) => {
-        const rollDistance = Number(reel.dataset.rollDistance || 0)
-
         gsap.to(reel, {
-          y: `-${rollDistance}em`,
+          y: isDownward ? '0em' : getRollOffset(reel),
           duration: duration + (index * 0.18),
           delay: delay + (index * 0.08),
           ease,
+          onComplete: () => {
+            completedReels += 1
+            if (completedReels === reelElements.length) {
+              onCompleteRef.current?.()
+            }
+          },
         })
       })
+    }
+
+    if (startOnMount) {
+      isVisibleRef.current = true
+      runCounter()
+      return () => gsap.killTweensOf(reelElements)
     }
 
     const isPageCovered = () => (
@@ -137,7 +164,7 @@ const AnimatedCounter = ({
       window.removeEventListener('pp:page-transition-complete', startWhenPageIsVisible)
       gsap.killTweensOf(reelElements)
     }
-  }, [delay, duration, ease, isNumeric, rootMargin, target, value])
+  }, [delay, duration, ease, isDownward, isNumeric, rootMargin, startOnMount, target, value])
 
   if (!isNumeric) {
     return <span aria-label={String(value)}>{value}</span>
@@ -163,6 +190,7 @@ const AnimatedCounter = ({
               }}
               className="flex flex-col leading-none will-change-transform"
               data-roll-distance={digits.length - 1}
+              style={isDownward ? { transform: `translateY(-${digits.length - 1}em)` } : undefined}
             >
               {digits.map((digit, digitIndex) => (
                 <span

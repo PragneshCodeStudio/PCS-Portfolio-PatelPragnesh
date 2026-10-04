@@ -1,0 +1,13 @@
+body.pp-not-found-page {
+  padding: 0;
+}
+
+.pp-not-found-intro {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pp-not-found-intro {
+    opacity: 1;
+  }
+}
