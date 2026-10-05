@@ -115,7 +115,7 @@ const ProjectsGallery = () => {
         </div>
 
         {pageCount > 1 && (
-          <nav aria-label="Project gallery pages" className="mt-10 flex items-center justify-center gap-2">
+          <nav aria-label="Project gallery pages" className="mt-8 md:mt-10 flex items-center justify-center gap-2">
             <button
               type="button"
               aria-label="Previous page"

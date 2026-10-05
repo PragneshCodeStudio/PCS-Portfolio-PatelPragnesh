@@ -260,7 +260,7 @@
 
 @layer components {
     .pp-container {
-        @apply w-full md:w-[95%] max-w-[1328px] mx-auto px-5 md:px-6;
+        @apply w-full xl:w-[95%] max-w-[1328px] mx-auto px-5 md:px-6;
     }
 
     .pp-sec-head {
@@ -399,16 +399,21 @@
     :root {
         --spacing-sec-space: 64px;
     }
+
+    .pp-first-sec {
+        padding-top: var(--spacing-sec-space);
+    }
 }
 
 @media screen and (max-width: 767px) {
     :root {
-        --spacing-sec-space: 48px;
+        --spacing-sec-space: 32px;
     }
 
-    .pp-first-sec {
-        padding-top: calc(var(--spacing-sec-space) * 2 + 24px);
+    .contact-title {
+        @apply text-4xl;
     }
+
 }
 
 /* END RESPONSIVE DESOGN CODE */

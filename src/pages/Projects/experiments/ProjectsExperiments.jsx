@@ -99,14 +99,14 @@ const ProjectsExperiments = () => {
         loop
         keyboard={{ enabled: true, onlyInViewport: true }}
         slidesPerView="auto"
-        spaceBetween={16}
+        spaceBetween={24}
         speed={500}
         preventInteractionOnTransition
         watchSlidesProgress
         onSwiper={(swiper) => { swiperRef.current = swiper }}
         onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
         onSlideChangeTransitionEnd={(swiper) => setActiveIndex(swiper.realIndex)}
-        className="w-full !px-[16px] lg:!px-[10%] xl:!px-[20%]"
+        className="w-full !px-[20px] md:!px-[24px] lg:!px-[10%] xl:!px-[20%]"
       >
         {experiments.map((experiment, index) => (
           <SwiperSlide
@@ -125,7 +125,7 @@ const ProjectsExperiments = () => {
         ))}
       </Swiper>
 
-      <div className="mt-5 flex items-center justify-center gap-5">
+      <div className="mt-8 md:mt-5 flex items-center justify-center gap-5">
         <button
           type="button"
           aria-label="Previous experiment"
