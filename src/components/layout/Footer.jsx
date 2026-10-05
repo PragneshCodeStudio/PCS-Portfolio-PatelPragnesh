@@ -29,7 +29,7 @@ const Footer = () => {
           <div>
             <Link
               to="/"
-              className="inline-flex max-w-[180px]"
+              className="inline-flex w-full max-w-[156px] md:max-w-[172px]"
               aria-label={`${profile.name} home`}
               onClick={(event) => handleNavigation(event, '/', 'Home')}
             >
