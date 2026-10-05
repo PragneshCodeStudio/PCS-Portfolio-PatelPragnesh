@@ -1,22 +1,31 @@
 import { useEffect, useLayoutEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-import { ScrollSmoother, ScrollTrigger } from '../../utils/gsap.config.js'
+import { gsap, ScrollSmoother, ScrollTrigger } from '../../utils/gsap.config.js'
 
 const SmoothScroll = ({ children }) => {
   const location = useLocation()
 
   useLayoutEffect(() => {
-    const smoother = ScrollSmoother.create({
-      wrapper: '#smooth-wrapper',
-      content: '#smooth-content',
-      smooth: 1.1,
-      smoothTouch: 0.6,
-      effects: true,
-      normalizeScroll: true,
-      ignoreMobileResize: true,
+    const media = gsap.matchMedia()
+
+    media.add('(min-width: 1281px)', () => {
+      const smoother = ScrollSmoother.create({
+        wrapper: '#smooth-wrapper',
+        content: '#smooth-content',
+        smooth: 1.1,
+        smoothTouch: 0.6,
+        effects: true,
+        normalizeScroll: true,
+        ignoreMobileResize: true,
+      })
+
+      return () => {
+        smoother.kill()
+        ScrollTrigger.refresh()
+      }
     })
 
-    return () => smoother.kill()
+    return () => media.revert()
   }, [])
 
   useEffect(() => {
