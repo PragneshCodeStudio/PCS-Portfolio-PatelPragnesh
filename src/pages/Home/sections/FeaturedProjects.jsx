@@ -40,12 +40,15 @@ const FeaturedProjects = () => {
                   slidesPerView: 2,
                 },
                 768: {
-                  slidesPerView: 2.2,
+                  slidesPerView: 2,
                 },
                 991: {
                   slidesPerView: 2.5,
                 },
                 1025: {
+                  slidesPerView: 2.5,
+                },
+                1280: {
                   slidesPerView: 3,
                 },
               }}

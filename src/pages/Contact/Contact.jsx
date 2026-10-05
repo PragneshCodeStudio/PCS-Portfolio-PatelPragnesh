@@ -5,7 +5,7 @@ const Contact = () => (
   <>
     <section className="flex pp-first-sec min-h-[100dvh] items-center justify-center">
       <div className="pp-container text-center">
-        <p className="pp-section-eyebrow flex flex-row flex-wrap justify-center">Web Developer <span>[ Frontend ]</span>  </p>
+        <p className="pp-section-eyebrow flex flex-row flex-wrap justify-center">Frontend Developer & Web Designer</p>
         <h1>
           What if we <br/> worked together?
         </h1>

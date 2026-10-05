@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom'
-import siteLogo from '../../assets/images/brand/Site-Logo-Light.webp'
-import siteLogoFallback from '../../assets/images/brand/Site-Logo-Light.svg'
+import siteLogo from '../../assets/images/brand/Site-Logo-Light.svg'
+import siteLogoFallback from '../../assets/images/brand/Site-Logo-Light.webp'
 import ImageWithFallback from '../ui/ImageWithFallback'
 import { usePageTransition } from '../../hooks/usePageTransition'
 import { profile, socialLinks } from '../../data/profile'
@@ -41,7 +41,7 @@ const Footer = () => {
               />
             </Link>
             <p className="mt-5 max-w-[440px] text-secondary-text">
-              A personal portfolio for frontend web design, responsive websites, WordPress builds, and polished GSAP-driven interactions.
+              I design and build responsive websites and interfaces, combining visual design, React, WordPress, and motion.
             </p>
           </div>
 

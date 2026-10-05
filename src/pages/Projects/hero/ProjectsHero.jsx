@@ -38,7 +38,7 @@ const ProjectsHero = () => {
           <p className="pp-section-eyebrow">Selected Work</p>
           <h1 className="text-6xl md:text-5xl lg:text-7xl xl:text-8xl">Projects</h1>
           <p className="mt-5 max-w-[460px] text-secondary-text">
-            Selected websites and interface work, shaped by visual design and frontend execution.
+            Company and personal projects I designed and developed, from responsive websites to interactive frontend experiences.
           </p>
         </div>
         <ProjectsHeroGallery mode={mode} reducedMotion={reducedMotion} />

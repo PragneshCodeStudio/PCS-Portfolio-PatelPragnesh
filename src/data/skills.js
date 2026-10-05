@@ -2,39 +2,35 @@ export const skills = [
   {
     id: 1,
     name: "HTML / CSS",
-    description:
-      "Semantic, responsive layouts from scratch — no templates, pure craft.",
-    tags: ["Semantic HTML", "Flexbox", "Grid", "BEM"],
-    level: 95,
+    description: "Building semantic, responsive layouts with Flexbox and Grid.",
+    tags: ["Semantic HTML", "Flexbox", "CSS Grid"],
   },
   {
     id: 2,
-    name: "Figma To Web",
+    name: "Design to Code",
     description:
-      "Converting Figma designs into pixel-perfect websites with full fidelity.",
-    tags: ["Pixel Perfect", "Auto Layout"],
-    level: 92,
+      "Turning designs from Figma, Adobe XD, Photoshop, and Illustrator into clean, responsive websites.",
+    tags: ["Responsive UI", "Design Implementation", "Clean Code"],
   },
   {
     id: 3,
-    name: "GSAP Animation",
-    description: "Smooth scroll-triggered animations and complex timelines.",
-    tags: ["ScrollTrigger", "Timeline", "Easing"],
-    level: 85,
+    name: "Web Animation & Interaction",
+    description:
+      "Creating smooth animations and interactive elements that guide attention and improve the user experience.",
+    tags: ["GSAP", "CSS Animations", "Interactive UI"],
   },
   {
     id: 4,
-    name: "React / MERN",
-    description: "Component-based UIs and full-stack MERN projects.",
-    tags: ["Props", "State", "Components", "Hooks"],
-    level: 78,
+    name: "React Development",
+    description:
+      "Building responsive React interfaces with reusable components, props, state, and hooks.",
+    tags: ["Components", "State", "Hooks"],
   },
   {
     id: 5,
-    name: "WordPress",
+    name: "WordPress & Elementor",
     description:
-      "Theme-based WordPress websites — fast, SEO-friendly, client-ready.",
-    tags: ["Theme Dev", "ACF", "Elementor", "WooCommerce"],
-    level: 88,
+      "Building responsive WordPress websites with theme customization, Elementor, and WooCommerce.",
+    tags: ["Theme Customization", "Elementor", "WooCommerce"],
   },
 ];

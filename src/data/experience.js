@@ -1,4 +1,4 @@
-﻿export const experience = [
+export const experience = [
   {
     id: 1,
     role: "Trainee Web Designer",
@@ -24,8 +24,8 @@
   {
     id: 3,
     role: "Senior Web Designer",
-    company: "Kamaldhari -> Webvoltz",
-    duration: "2023-2024",
+    company: "Kamaldhari",
+    duration: "2023 – Apr 2025",
     phase: "Promoted to Senior",
     current: false,
     description:
@@ -37,11 +37,11 @@
     role: "Senior Web Designer",
     company: "Webvoltz",
     companyNote: "Company rebranded in mid 2025.",
-    duration: "2024-Present",
+    duration: "May 2025 – Present",
     // phase: "CAREER MILESTONE",
     current: true,
     description:
-      "Now working independently in a senior position, building polished, reliable, quality-focused web experiences across design, frontend, animation, and CMS projects.",
+      "Delivering web design, frontend, animation, and CMS work; collaborated with a MERN team to design and build React application interfaces, including redesigns.",
     tags: ["Independent Work", "React", "GSAP", "Quality Work"],
   },
 ];

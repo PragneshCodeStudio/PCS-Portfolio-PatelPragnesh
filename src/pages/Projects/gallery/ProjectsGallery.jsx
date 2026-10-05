@@ -13,7 +13,7 @@ const interleaveByCategory = (projectList) => {
   const groups = new Map()
 
   projectList.forEach((project) => {
-    const category = project.category || project.type || 'Other'
+    const category = project.category || 'Other'
     if (!groups.has(category)) groups.set(category, [])
     groups.get(category).push(project)
   })
@@ -37,11 +37,11 @@ const ProjectsGallery = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const resultsRef = useRef(null)
   const categories = useMemo(() => (
-    ['All', ...new Set(projects.map((project) => project.category || project.type).filter(Boolean))]
+    ['All', ...new Set(projects.map((project) => project.category).filter(Boolean))]
   ), [])
   const filteredProjects = activeCategory === 'All'
     ? mixedProjects
-    : projects.filter((project) => (project.category || project.type) === activeCategory)
+    : projects.filter((project) => project.category === activeCategory)
   const pageCount = Math.ceil(filteredProjects.length / PROJECTS_PER_PAGE)
   const pageStart = (currentPage - 1) * PROJECTS_PER_PAGE
   const visibleProjects = filteredProjects.slice(pageStart, pageStart + PROJECTS_PER_PAGE)

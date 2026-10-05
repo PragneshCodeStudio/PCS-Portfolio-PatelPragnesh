@@ -1,8 +1,8 @@
 /* START BRAND ICON */
 export const BrandFavIconWhite = ({ className = '' }) => (
   <svg className={className} width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M131.4 512V402L410.8 122.6V0H512V512H131.4Z" fill="#ffffff"/>
-    <path d="M0 512V0H380.5V110L101.1 389.4V512H0Z" fill="#ffffff"/>
+    <path d="M131.4 512V402L410.8 122.6V0H512V512H131.4Z" fill="#f2f2f2"/>
+    <path d="M0 512V0H380.5V110L101.1 389.4V512H0Z" fill="#f2f2f2"/>
 </svg>
 )
 

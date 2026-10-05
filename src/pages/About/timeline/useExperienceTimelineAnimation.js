@@ -99,25 +99,33 @@ const useExperienceTimelineAnimation = (sectionRef) => {
 
       media = gsap.matchMedia()
 
-      media.add('(min-width: 768px)', () => {
-        if (track && iconCard && iconCol) {
-          ScrollTrigger.create({
-            trigger: track,
-            start: 'top top+=120',
-            end: () => {
-              const pinDistance = track.offsetHeight - iconCard.offsetHeight
+      media.add('(min-width: 1024px)', () => {
+        if (!track || !iconCard || !iconCol) return
 
-              return `+=${Math.max(pinDistance, 0)}`
-            },
-            pin: iconCard,
-            pinSpacing: false,
-            invalidateOnRefresh: true,
-            onLeave: () => updateIconTrace(1, 1),
-          })
+        const updateIconPosition = (self) => {
+          const travel = Math.max(iconCol.offsetHeight - iconCard.offsetHeight, 0)
+          const availableScroll = Math.max(ScrollTrigger.maxScroll(window) - self.start, 0)
+          const scrollRange = Math.min(travel, availableScroll)
+          const progress = scrollRange > 0
+            ? gsap.utils.clamp(0, 1, (self.scroll() - self.start) / scrollRange)
+            : 1
+
+          gsap.set(iconCard, { y: -travel * (1 - progress) })
         }
+
+        const positionTrigger = ScrollTrigger.create({
+          trigger: track,
+          start: 'top top+=120',
+          end: 'max',
+          invalidateOnRefresh: true,
+          onUpdate: updateIconPosition,
+          onRefresh: updateIconPosition,
+        })
+
+        updateIconPosition(positionTrigger)
       })
 
-      media.add('(max-width: 767px)', () => {
+      media.add('(max-width: 1023px)', () => {
         updateIconTrace(1, 1)
 
         return () => {
@@ -154,8 +162,9 @@ const useExperienceTimelineAnimation = (sectionRef) => {
 
         stepProgressPoints = getStepProgressPoints()
 
-        const updateActiveSteps = (progress = 0) => {
-          const normalizedProgress = gsap.utils.clamp(0, 1, progress)
+        const updateActiveSteps = (progress = 0, scrollPosition = 0) => {
+          const atPageEnd = scrollPosition >= ScrollTrigger.maxScroll(window) - 1
+          const normalizedProgress = atPageEnd ? 1 : gsap.utils.clamp(0, 1, progress)
           const activeIndex = stepProgressPoints.reduce((latestIndex, point, index) => (
             normalizedProgress > 0.001 && normalizedProgress + 0.001 >= point ? index : latestIndex
           ), -1)
@@ -185,15 +194,15 @@ const useExperienceTimelineAnimation = (sectionRef) => {
             end: 'bottom center',
             scrub: true,
             onLeave: () => updateActiveSteps(1),
-            onUpdate: (self) => updateActiveSteps(self.progress),
+            onUpdate: (self) => updateActiveSteps(self.progress, self.scroll()),
             onRefresh: (self) => {
               stepProgressPoints = getStepProgressPoints()
-              updateActiveSteps(self.progress)
+              updateActiveSteps(self.progress, self.scroll())
             },
           },
         })
 
-        updateActiveSteps(lineTween.scrollTrigger?.progress || 0)
+        updateActiveSteps(lineTween.scrollTrigger?.progress || 0, lineTween.scrollTrigger?.scroll() || 0)
       }
     }, section)
 

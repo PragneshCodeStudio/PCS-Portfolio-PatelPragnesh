@@ -62,7 +62,7 @@ const ExperienceTimeline = () => {
               ))}
             </div>
 
-            <div className="pp-iconMorph-col relative md:min-h-full hidden lg:block" data-experience-icon-col="">
+            <div className="pp-iconMorph-col relative hidden lg:flex lg:min-h-full lg:flex-col lg:justify-end" data-experience-icon-col="">
               <Card
                 as="div"
                 padding="lg"

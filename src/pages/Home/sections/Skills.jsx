@@ -34,7 +34,7 @@ const Skills = () => {
                 slidesPerView: 2,
               },
               768: {
-                slidesPerView: 2.2,
+                slidesPerView: 2,
               },
               991: {
                 slidesPerView: 2.5,
@@ -51,9 +51,9 @@ const Skills = () => {
               >
                 <Card className="flex w-full flex-col">
                   <h3>{skill.name}</h3>
-                  <p className="mt-3 text-secondary-text">{skill.description}</p>
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    {skill.tags.slice(0, 3).map((tag) => (
+                  <p className="mt-3 mb-5 text-secondary-text">{skill.description}</p>
+                  <div className="mt-auto flex flex-wrap gap-2">
+                    {skill.tags.map((tag) => (
                       <Tag key={tag}>{tag}</Tag>
                     ))}
                   </div>

@@ -20,9 +20,7 @@ const About = () => {
                 <p className="pp-section-eyebrow">About Me</p>
                 <h1 className="text-5xl sm:text-6xl xl:text-7xl">Patel Pragnesh</h1>
                 <p className="mt-5 max-w-[680px] text-secondary-text">
-                  I design and build websites that balance strong visual direction with practical
-                  frontend thinking. From layout to interaction, I focus on making each experience
-                  clear, useful, and easy to navigate.
+                  I turn visual concepts into responsive websites and interfaces, with experience in WordPress, GSAP, and React app UI alongside a MERN team.
                 </p>
               </div>
               <div className='h-full flex flex-col'>

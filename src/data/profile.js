@@ -1,25 +1,26 @@
-import { FaLinkedinIn, FaCodepen, FaGithub } from 'react-icons/fa6'
+import { FaLinkedinIn, FaCodepen, FaGithub } from "react-icons/fa6";
+import resumePdf from "../assets/documents/Pragnesh_CV.pdf";
 
 export const profile = {
-  name: 'Patel Pragnesh',
-  email: 'patelpragnesh0707@gmail.com',
-  resumeUrl: 'https://cdn.example.com/patel-pragnesh-resume.pdf',
-}
+  name: "Patel Pragnesh",
+  email: "pragneshpatel0707@gmail.com",
+  resumeUrl: resumePdf,
+};
 
 export const socialLinks = [
   {
-    label: 'LinkedIn',
+    label: "LinkedIn",
     Icon: FaLinkedinIn,
-    href: 'https://www.linkedin.com/in/pragnesh-kumar-patel-194b391b9/',
+    href: "https://www.linkedin.com/in/pragneshpatel0707",
   },
   {
-    label: 'CodePen',
+    label: "CodePen",
     Icon: FaCodepen,
-    href: 'https://codepen.io/PRAGNESH-CODE-STUDIO/',
+    href: "https://codepen.io/PRAGNESH-CODE-STUDIO/",
   },
   {
-    label: 'GitHub',
+    label: "GitHub",
     Icon: FaGithub,
-    href: 'https://github.com/PragneshCodeStudio',
+    href: "https://github.com/PragneshCodeStudio",
   },
-]
+];
