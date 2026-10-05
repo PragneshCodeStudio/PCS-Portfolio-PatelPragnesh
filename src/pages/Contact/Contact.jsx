@@ -3,7 +3,7 @@ import Button from '../../components/ui/Button'
 
 const Contact = () => (
   <>
-    <section className="flex pp-first-sec xl:min-h-[calc(100svh-80px)] 2xl:min-h-[100svh] items-center justify-center">
+    <section className="flex pp-first-sec min-h-[calc(100svh-356px)] md:min-h-[calc(100svh-288px)] lg:min-h-[calc(100svh-266px)] items-center justify-center">
       <div className="pp-container text-center">
         <p className="pp-section-eyebrow flex flex-row flex-wrap justify-center">Frontend Developer & Web Designer</p>
         <h1 className="contact-title">
