@@ -32,9 +32,9 @@ const ProjectsHero = () => {
   const reducedMotion = useSyncExternalStore(subscribeToReducedMotion, getReducedMotion, () => true)
 
   return (
-    <section className="pp-first-sec overflow-hidden !py-0 md:flex md:aspect-[16/10] lg:aspect-[16/9] xl:aspect-[16/8] md:flex-col md:!pb-0 md:!pt-20">
+    <section className="pp-first-sec overflow-hidden !py-0 md:flex md:aspect-[16/10] lg:aspect-[16/9] xl:aspect-[16/8] md:flex-col md:!py-0">
       <div className="relative isolate grid flex-1 md:grid-cols-[45%_55%]">
-        <div className="pp-info-col absolute inset-x-0 bottom-0 z-20 flex min-w-0 flex-col justify-center px-5 pb-8 md:static md:z-auto md:pb-0 md:pl-[max(5vw,calc(50vw_-_640px))] md:pr-6">
+        <div className="pp-info-col absolute inset-x-0 bottom-0 z-20 flex min-w-0 flex-col justify-center py-[var(--spacing-sec-space)] px-5 md:static md:z-auto md:pl-[max(5vw,calc(50vw_-_640px))] md:pr-6">
           <p className="pp-section-eyebrow">Selected Work</p>
           <h1 className="text-6xl md:text-5xl lg:text-7xl xl:text-8xl">Projects</h1>
           <p className="mt-5 max-w-[460px] text-secondary-text">

@@ -43,7 +43,7 @@ const SmoothScroll = ({ children }) => {
 
   return (
     <div id="smooth-wrapper">
-      <div id="smooth-content" className="min-h-[100dvh] flex flex-col">
+      <div id="smooth-content" className="min-h-[100svh] flex flex-col">
         {children}
       </div>
     </div>

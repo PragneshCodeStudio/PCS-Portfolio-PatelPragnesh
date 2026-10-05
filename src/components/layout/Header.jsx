@@ -116,14 +116,14 @@ const Header = () => {
       </div>
 
       <div
-        className={`fixed inset-0 top-[77px] z-0 bg-main-bg/70 transition duration-300 md:hidden ${
+        className={`fixed inset-0 top-[76px] z-0 bg-main-bg/70 transition duration-300 md:hidden ${
           isDrawerOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
         }`}
         aria-hidden="true"
         onClick={() => setIsDrawerOpen(false)}
       />
       <aside
-        className={`fixed right-0 top-[77px] z-10 h-[calc(100dvh-77px)] w-[min(330px,calc(100vw-32px))] border-l border-border bg-section-bg px-6 py-4 transition duration-300 md:hidden ${
+        className={`fixed right-0 top-[76px] z-10 h-[calc(100dvh-76px)] w-[min(330px,calc(100vw-32px))] border-l border-border bg-section-bg px-6 py-4 transition duration-300 md:hidden ${
           isDrawerOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
         aria-hidden={!isDrawerOpen}

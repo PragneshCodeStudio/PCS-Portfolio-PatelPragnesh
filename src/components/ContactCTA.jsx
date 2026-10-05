@@ -8,7 +8,7 @@ const ContactCTA = ({ showProjects = false }) => {
         <div className="grid gap-4 lg:gap-8 md:grid-cols-[1.1fr_0.9fr] lg:grid-cols-[0.8fr_1.2fr] items-center">
           <div>
             <p className="pp-section-eyebrow">Contact</p>
-            <h2>Open to Frontend & <br /> Web Design Roles</h2>
+            <h2>Open to Frontend & <br/> Web Design Roles</h2>
           </div>
           <div>
             <p className="text-secondary-text">

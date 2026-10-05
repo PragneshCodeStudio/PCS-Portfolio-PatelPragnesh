@@ -7,7 +7,7 @@ const AboutPreview = () => {
         <div className="grid gap-4 lg:gap-8 md:grid-cols-[0.9fr_1.1fr] lg:grid-cols-[0.8fr_1.2fr] items-center">
           <div>
             <p className="pp-section-eyebrow">About</p>
-            <h2>The Designer <br /> Behind the code</h2>
+            <h2>The Designer <br  /> Behind the code</h2>
           </div>
           <div>
             <p className="text-secondary-text">

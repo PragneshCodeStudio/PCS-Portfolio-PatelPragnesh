@@ -8,7 +8,7 @@ import Card from '../../components/ui/Card'
 const About = () => {
   return (
     <>
-      <section className="pp-first-sec overflow-hidden xl:min-h-[100dvh] flex items-center">
+      <section className="pp-first-sec overflow-hidden xl:min-h-[calc(100svh-80px)] 2xl:min-h-[100svh] flex items-center">
         <div className="pp-container">
           <div className="flex flex-col-reverse gap-4 lg:flex-row lg:items-stretch">
             <Card
