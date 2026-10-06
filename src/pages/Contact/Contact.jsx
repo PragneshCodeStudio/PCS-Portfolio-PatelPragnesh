@@ -5,13 +5,11 @@ const Contact = () => (
   <>
     <section className="flex pp-first-sec min-h-[calc(100svh-356px)] md:min-h-[calc(100svh-288px)] lg:min-h-[calc(100svh-266px)] items-center justify-center">
       <div className="pp-container text-center">
-        <p className="pp-section-eyebrow flex flex-row flex-wrap justify-center">Frontend Developer & Web Designer</p>
+        <p className="pp-section-eyebrow flex flex-row flex-wrap justify-center">Available for Frontend & Web Design Roles</p>
         <h1 className="contact-title">
-          What if we <br/> worked together?
+          Let's Build Something <br/> Great Together
         </h1>
-        <p className="mx-auto mt-6 max-w-[640px] text-secondary-text sm:text-lg">
-          Hiring for a web design or frontend role? Reach me by email, <br className="hidden md:block" /> or explore my profiles below.
-        </p>
+        <p className="mx-auto mt-6 max-w-[540px] md:max-w-[640px] text-secondary-text sm:text-lg">Full-time roles, freelance projects, and collaborations are welcome. Reach me by email or connect through the profiles below.</p>
 
         <div className="mt-9">
           <Button href={`mailto:${profile.email}`}>

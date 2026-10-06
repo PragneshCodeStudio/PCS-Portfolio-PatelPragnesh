@@ -108,7 +108,7 @@ const ProjectsGallery = () => {
           {'-'}{Math.min(pageStart + PROJECTS_PER_PAGE, filteredProjects.length)} of {filteredProjects.length} projects
         </p>
 
-        <div ref={resultsRef} id="project-results" className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <div ref={resultsRef} id="project-results" className="grid gap-4 md:gap-6 md:grid-cols-2 xl:grid-cols-3">
           {visibleProjects.map((project) => (
             <ProjectCard key={project.id} project={project} showAction />
           ))}
