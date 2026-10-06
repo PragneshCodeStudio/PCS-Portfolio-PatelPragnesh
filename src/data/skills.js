@@ -14,7 +14,7 @@ export const skills = [
   },
   {
     id: 3,
-    name: "Web Animation & Interaction",
+    name: "Animation & Interaction",
     description:
       "Creating smooth animations and interactive elements that guide attention and improve the user experience.",
     tags: ["GSAP", "CSS Animations", "Interactive UI"],

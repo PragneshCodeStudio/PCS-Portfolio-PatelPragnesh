@@ -411,7 +411,7 @@
     }
 
     .contact-title {
-        @apply text-4xl;
+        @apply text-3xl;
     }
 
 }
