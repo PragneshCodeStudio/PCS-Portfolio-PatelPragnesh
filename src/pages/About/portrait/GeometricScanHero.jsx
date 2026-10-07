@@ -46,6 +46,8 @@ import {
   Zap,
 } from 'lucide-react'
 import aboutHeroImage from '../../../assets/images/profile/scan-pic.webp'
+import aboutPlaceholderImage from '../../../assets/images/placeholders/placeholder-1_1.webp'
+import ImageWithFallback from '../../../components/ui/ImageWithFallback'
 import './GeometricScanHero.css'
 import { FACE_SCAN_CONFIG } from './faceScan.config.js'
 import { GEOMETRIC_SCAN_CONFIG } from './geometricScan.config.js'
@@ -119,10 +121,9 @@ const createGridCells = (columns, rows) => Array.from({ length: columns * rows }
   }
 })
 
-const easeInOutSine = (progress) => -(Math.cos(Math.PI * progress) - 1) / 2
-
 const GeometricScanHero = () => {
   const frameRef = useRef(null)
+  const [portraitReady, setPortraitReady] = useState(false)
   const [gridSize, setGridSize] = useState({ columns: 1, rows: 1 })
   const gridCells = useMemo(
     () => createGridCells(gridSize.columns, gridSize.rows),
@@ -149,13 +150,13 @@ const GeometricScanHero = () => {
     }
 
     const observer = new ResizeObserver(updateGridSize)
+    const cellSizeBreakpoint = window.matchMedia('(min-width: 1024px)')
     observer.observe(frame)
-    // Cell-size breakpoints can change even when the frame width stays the same.
-    window.addEventListener('resize', updateGridSize)
+    cellSizeBreakpoint.addEventListener('change', updateGridSize)
 
     return () => {
       observer.disconnect()
-      window.removeEventListener('resize', updateGridSize)
+      cellSizeBreakpoint.removeEventListener('change', updateGridSize)
     }
   }, [])
 
@@ -163,67 +164,63 @@ const GeometricScanHero = () => {
     const frame = frameRef.current
     if (!frame) return undefined
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    let animationFrame = 0
-    const startTime = performance.now()
-
-    const updateScanProgress = (time) => {
-      const cycleProgress = (
-        (time - startTime) % FACE_SCAN_CONFIG.timing.duration
-      ) / FACE_SCAN_CONFIG.timing.duration
-      const rawProgress = prefersReducedMotion
-        ? 1
-        : 1 - Math.abs(cycleProgress * 2 - 1)
-      const progress = prefersReducedMotion ? 1 : easeInOutSine(rawProgress)
-
-      frame.style.setProperty('--pp-geometric-scan-progress', `${progress * 100}%`)
-      frame.style.setProperty('--pp-geometric-scan-progress-number', progress)
-      animationFrame = window.requestAnimationFrame(updateScanProgress)
+    if (typeof IntersectionObserver === 'undefined') {
+      frame.dataset.scanVisible = 'true'
+      return undefined
     }
 
-    animationFrame = window.requestAnimationFrame(updateScanProgress)
+    const observer = new IntersectionObserver(([entry]) => {
+      frame.dataset.scanVisible = entry.isIntersecting ? 'true' : 'false'
+    }, { rootMargin: '80px' })
+    observer.observe(frame)
 
-    return () => {
-      window.cancelAnimationFrame(animationFrame)
-    }
+    return () => observer.disconnect()
   }, [])
 
   return (
     <div
       ref={frameRef}
+      data-scan-visible="false"
       className="pp-geometric-scan-frame border-box max-w-full md:max-w-1/2 lg:max-w-[530px] w-full"
       style={{
-        '--pp-geometric-mask-image': `url(${aboutHeroImage})`,
+        '--pp-geometric-mask-image': portraitReady ? `url(${aboutHeroImage})` : 'none',
         '--pp-geometric-grid-columns': gridSize.columns,
         '--pp-geometric-grid-rows': gridSize.rows,
+        '--pp-geometric-scan-duration': FACE_SCAN_CONFIG.timing.duration + 'ms',
       }}
     >
-      <img
+      <ImageWithFallback
         src={aboutHeroImage}
+        fallbackSrc={aboutPlaceholderImage}
         alt="Patel Pragnesh geometric scan portrait"
-        className="pp-geometric-scan-portrait"
+        className={portraitReady ? 'pp-geometric-scan-portrait' : 'pointer-events-none absolute inset-0 size-full object-contain object-center'}
         loading="eager"
-        decoding="async"
+        onSourceReady={() => setPortraitReady(true)}
+        onSourceError={() => setPortraitReady(false)}
       />
 
-      <div className="pp-geometric-scan-icon-mask" aria-hidden="true">
-        <div className="pp-geometric-scan-grid">
-          {gridCells.map(({ Icon, iconName, key, animationClass, delay, accent }) => (
-            <span
-              key={key}
-              className={`pp-geometric-scan-cell ${animationClass} ${accent ? 'pp-geo-icon-accent' : ''}`}
-              style={{ '--pp-geometric-icon-delay': `${delay}s` }}
-            >
-              {createElement(Icon, { 'aria-hidden': true, strokeWidth: 1.8 })}
-              <span className="sr-only">{iconName}</span>
-            </span>
-          ))}
-        </div>
-      </div>
+      {portraitReady && (
+        <>
+          <div className="pp-geometric-scan-icon-mask" aria-hidden="true">
+            <div className="pp-geometric-scan-grid">
+              {gridCells.map(({ Icon, iconName, key, animationClass, delay, accent }) => (
+                <span
+                  key={key}
+                  className={`pp-geometric-scan-cell ${animationClass} ${accent ? 'pp-geo-icon-accent' : ''}`}
+                  style={{ '--pp-geometric-icon-delay': `${delay}s` }}
+                >
+                  {createElement(Icon, { 'aria-hidden': true, strokeWidth: 1.8 })}
+                  <span className="sr-only">{iconName}</span>
+                </span>
+              ))}
+            </div>
+          </div>
 
-      <div className="pp-geometric-scan-line" aria-hidden="true">
-        <span />
-      </div>
+          <div className="pp-geometric-scan-line" aria-hidden="true">
+            <span />
+          </div>
+        </>
+      )}
     </div>
   )
 }
