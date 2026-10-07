@@ -70,9 +70,10 @@ const Footer = () => {
                 key={link.label}
                 href={link.href}
                 target="_blank"
-                rel="noreferrer"
-                className="font-body text-sm font-semibold text-secondary-text transition hover:text-accent"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 font-body text-sm font-semibold text-secondary-text transition hover:text-accent"
               >
+                <link.Icon aria-hidden="true" className="size-4 shrink-0" />
                 {link.label}
               </a>
             ))}
