@@ -4,20 +4,26 @@ import { A11y, Keyboard } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import { codePenUser, experiments } from '../../../data/experiments.js'
+import landscapePlaceholder from '../../../assets/images/placeholders/placeholder-16_9.webp'
+import portraitPlaceholder from '../../../assets/images/placeholders/placeholder-2_3.webp'
 
 const LivePen = ({ title, src }) => {
+  const [isLoaded, setIsLoaded] = useState(false)
+
   return (
     <iframe
       title={`${title} CodePen demo`}
       src={src}
-      className="absolute inset-0 block size-full bg-card-bg"
+      className={`absolute inset-0 block size-full bg-card-bg ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+      onLoad={() => setIsLoaded(true)}
+      tabIndex={isLoaded ? 0 : -1}
       allowFullScreen
     />
   )
 }
 
 const ExperimentSlide = ({ experiment, isActive, isAdjacent, onSelect }) => {
-  const [previewFailed, setPreviewFailed] = useState(false)
+  const [previewLoaded, setPreviewLoaded] = useState(false)
   const penUrl = `https://codepen.io/${codePenUser}/pen/${experiment.slug}`
   const screenshotUrl = `${penUrl}/image/large.png`
   const embedUrl = `https://codepen.io/${codePenUser}/embed/${experiment.slug}?file=false&theme-id=-3`
@@ -29,24 +35,19 @@ const ExperimentSlide = ({ experiment, isActive, isAdjacent, onSelect }) => {
       }`}
     >
       <div className="relative aspect-[4/6] overflow-hidden md:aspect-video">
-        {previewFailed ? (
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-card-bg px-6 text-center">
-            <span className="text-xs font-semibold uppercase text-accent">CodePen</span>
-            <span className="max-w-md font-heading text-xl font-bold uppercase text-primary-text sm:text-2xl">
-              {experiment.title}
-            </span>
-          </div>
-        ) : (
-          <img
-            src={screenshotUrl}
-            alt=""
-            loading="lazy"
-            decoding="async"
-            onError={() => setPreviewFailed(true)}
-            className="absolute inset-0 size-full object-cover"
-          />
-        )}
-
+        <picture className="absolute inset-0 block size-full">
+          <source media="(min-width: 768px)" srcSet={landscapePlaceholder} />
+          <img src={portraitPlaceholder} alt="" className="size-full object-cover" />
+        </picture>
+        <img
+          src={screenshotUrl}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          onLoad={() => setPreviewLoaded(true)}
+          onError={() => setPreviewLoaded(false)}
+          className={`absolute inset-0 size-full object-cover ${previewLoaded ? 'opacity-100' : 'opacity-0'}`}
+        />
         {isActive && <LivePen title={experiment.title} src={embedUrl} />}
 
         {!isActive && (

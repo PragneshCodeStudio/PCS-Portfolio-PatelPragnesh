@@ -1,16 +1,18 @@
 import { useCallback, useLayoutEffect, useRef } from 'react'
 import { gsap } from '../../../utils/gsap.config.js'
+import ImageWithFallback from '../../../components/ui/ImageWithFallback'
+import projectPlaceholderImage from '../../../assets/images/placeholders/placeholder-16_9.webp'
 
 const ProjectTile = ({ project, interactive, eager }) => {
   const content = (
     <>
       <div className="aspect-video w-full overflow-hidden bg-section-bg">
-        <img
+        <ImageWithFallback
           src={project.image}
+          fallbackSrc={projectPlaceholderImage}
           alt=""
           className="size-full object-contain"
           loading={eager ? 'eager' : 'lazy'}
-          decoding="async"
         />
       </div>
       <span className="block truncate px-2 py-2 font-body text-xs font-semibold text-primary-text lg:px-3 lg:text-sm">

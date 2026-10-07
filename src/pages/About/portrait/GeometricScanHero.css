@@ -2,13 +2,11 @@
 
 @layer components {
     .pp-geometric-scan-frame {
-        @apply relative mx-auto aspect-[1/1] w-full max-w-[1024px] shrink-0 bg-main-bg;
-        --pp-geometric-cell-size: 24px;
+        @apply relative mx-auto aspect-[1/1] w-full max-w-[1024px] shrink-0 overflow-hidden bg-main-bg;
+        --pp-geometric-cell-size: 40px;
         --pp-geometric-grid-gap: 3px;
-        --pp-geometric-scan-progress: 0%;
-        --pp-geometric-scan-position: calc(var(--pp-geometric-scan-start) + (var(--pp-geometric-scan-range) * var(--pp-geometric-scan-progress-number, 0)));
-        --pp-geometric-scan-start: 0%;
-        --pp-geometric-scan-range: 100%;
+        --pp-geometric-scan-duration: 7000ms;
+        contain: paint;
     }
 
     .pp-geometric-scan-frame::after {
@@ -22,13 +20,15 @@
 
     .pp-geometric-scan-portrait {
         @apply pointer-events-none absolute inset-0 z-0 size-full object-contain object-center;
-        clip-path: inset(0 0 calc(100% - var(--pp-geometric-scan-position)) 0);
+        clip-path: inset(0 0 100% 0);
+        animation: pp-geo-portrait-scan var(--pp-geometric-scan-duration) ease-in-out infinite;
     }
 
     .pp-geometric-scan-icon-mask {
         @apply pointer-events-none absolute inset-0 overflow-hidden;
         z-index: 10;
-        clip-path: inset(var(--pp-geometric-scan-position) 0 0 0);
+        clip-path: inset(0 0 0 0);
+        animation: pp-geo-grid-scan var(--pp-geometric-scan-duration) ease-in-out infinite;
         mask-image: var(--pp-geometric-mask-image);
         mask-mode: alpha;
         mask-position: center;
@@ -302,29 +302,14 @@
     }
 
     .pp-geometric-scan-line {
-        @apply pointer-events-none absolute inset-x-0 h-px;
+        @apply pointer-events-none absolute inset-0;
         z-index: 20;
-        top: clamp(0.5px, var(--pp-geometric-scan-position), calc(100% - 0.5px));
-        transform: translateY(-50%);
-        background: transparent;
-        box-shadow: none;
+        animation: pp-geo-line-scan var(--pp-geometric-scan-duration) ease-in-out infinite;
+        will-change: transform;
     }
 
     .pp-geometric-scan-line span {
-        @apply absolute left-[6%] right-[6%] top-1/2 h-px -translate-y-1/2 bg-accent;
-        box-shadow: none;
-    }
-
-    @media (min-width: 640px) {
-        .pp-geometric-scan-frame {
-            --pp-geometric-cell-size: 28px;
-        }
-    }
-
-    @media (min-width: 768px) {
-        .pp-geometric-scan-frame {
-            --pp-geometric-cell-size: 32px;
-        }
+        @apply absolute left-[6%] right-[6%] top-0 h-px -translate-y-1/2 bg-accent;
     }
 
     @media (min-width: 1024px) {
@@ -332,6 +317,46 @@
             --pp-geometric-cell-size: 32px;
         }
     }
+
+    @media (max-width: 1023px) {
+        .pp-geometric-scan-cell svg {
+            animation: none;
+        }
+    }
+
+    .pp-geometric-scan-frame[data-scan-visible='false'] .pp-geometric-scan-portrait,
+    .pp-geometric-scan-frame[data-scan-visible='false'] .pp-geometric-scan-icon-mask,
+    .pp-geometric-scan-frame[data-scan-visible='false'] .pp-geometric-scan-line,
+    .pp-geometric-scan-frame[data-scan-visible='false'] .pp-geometric-scan-cell svg {
+        animation-play-state: paused;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .pp-geometric-scan-portrait {
+            animation: none;
+            clip-path: none;
+        }
+
+        .pp-geometric-scan-icon-mask,
+        .pp-geometric-scan-line {
+            display: none;
+        }
+    }
+}
+
+@keyframes pp-geo-portrait-scan {
+    0%, 100% { clip-path: inset(0 0 100% 0); }
+    50% { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes pp-geo-grid-scan {
+    0%, 100% { clip-path: inset(0 0 0 0); }
+    50% { clip-path: inset(100% 0 0 0); }
+}
+
+@keyframes pp-geo-line-scan {
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(0, calc(100% - 1px), 0); }
 }
 
 @keyframes pp-geo-menu-reorder {

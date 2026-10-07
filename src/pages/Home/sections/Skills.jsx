@@ -20,7 +20,7 @@ const Skills = () => {
 
         <div className="relative">
           <Swiper
-            className="pp-skills-swiper"
+            className="pp-skills-swiper !pb-[1px]"
             modules={[Navigation, A11y]}
             spaceBetween={16}
             slidesPerView={1}
