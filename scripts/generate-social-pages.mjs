@@ -161,3 +161,29 @@ for (const page of pages) {
 
   await writeFile(new URL(`${page.slug}.html`, outputDirectory), html);
 }
+let notFoundHtml = sourceHtml;
+notFoundHtml = replaceRequired(
+  notFoundHtml,
+  /<title>[\s\S]*?<\/title>/,
+  "<title>Page Not Found | Patel Pragnesh</title>",
+  "404 title",
+);
+notFoundHtml = replaceRequired(
+  notFoundHtml,
+  /<meta name="description" content="[^"]*" \/>/,
+  '<meta name="description" content="The requested page could not be found on the Patel Pragnesh portfolio." />',
+  "404 description",
+);
+notFoundHtml = replaceRequired(
+  notFoundHtml,
+  /<meta name="robots" content="[^"]*" \/>/,
+  '<meta name="robots" content="noindex, follow" />',
+  "404 robots directive",
+);
+notFoundHtml = notFoundHtml
+  .replace(/\s*<link rel="canonical" href="[^"]*" \/>/, "")
+  .replace(/\s*<meta property="og:[^"]+"[^>]*\/>/g, "")
+  .replace(/\s*<meta name="twitter:[^"]+"[^>]*\/>/g, "")
+  .replace(/\s*<script id="seo-structured-data" type="application\/ld\+json">[\s\S]*?<\/script>/, "");
+
+await writeFile(new URL("404.html", outputDirectory), notFoundHtml);
