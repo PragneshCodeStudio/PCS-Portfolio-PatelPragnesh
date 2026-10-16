@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 references/*
+!references/pixelated-logo-hover/
 src/assets/images/unUsed/*
 
 # Editor directories and files

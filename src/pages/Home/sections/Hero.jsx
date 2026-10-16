@@ -2,6 +2,7 @@ import Button from '../../../components/ui/Button'
 import ImageWithFallback from '../../../components/ui/ImageWithFallback'
 import heroImage from '../../../assets/images/profile/hero-pragnesh-generated.png'
 import heroPlaceholderImage from '../../../assets/images/placeholders/placeholder-4_5.webp'
+import { socialLinks } from '../../../data/profile'
 
 const Hero = () => {
   return (
@@ -21,6 +22,20 @@ const Hero = () => {
             <Button to="/projects">See Projects</Button>
             <Button to="/contact" variant="secondary">Connect</Button>
           </div>
+          <nav aria-label="Professional profiles" className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-3">
+            {socialLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm font-medium text-secondary-text transition hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+              >
+                <link.Icon aria-hidden="true" className="size-4 shrink-0" />
+                {link.label}
+              </a>
+            ))}
+          </nav>
         </div>
         <div className="pp-img-col relative mx-auto w-full max-w-full md:max-w-[45%] lg:max-w-[35%] 2xl:max-w-[36%] p-5">
           <div className="pointer-events-none absolute border border-border inset-0" />
