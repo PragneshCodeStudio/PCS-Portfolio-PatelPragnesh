@@ -1,9 +1,12 @@
 {
   "trailingSlash": false,
+  "redirects": [
+    { "source": "/skills", "destination": "/", "permanent": true },
+    { "source": "/experience", "destination": "/about", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/about", "destination": "/about.html" },
     { "source": "/projects", "destination": "/projects.html" },
-    { "source": "/contact", "destination": "/contact.html" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/contact", "destination": "/contact.html" }
   ]
 }

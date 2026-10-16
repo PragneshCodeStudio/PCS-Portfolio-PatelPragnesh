@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0c0c0e" />
+  <title>Pixelated Logo Hover | Patel Pragnesh</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <div class="page-shell">
+    <header class="topbar" aria-label="Demo header">
+      <span class="wordmark">PP<span class="wordmark-slash">/</span>LAB</span>
+      <span class="topbar-note">INTERACTION STUDY <span>001</span></span>
+    </header>
+
+    <main class="demo">
+      <div class="intro">
+        <p class="eyebrow"><span aria-hidden="true"></span> PIXEL DISTORTION</p>
+        <h1>A little motion.<br /><em>A lot of character.</em></h1>
+        <p class="description">
+          Move your cursor over the logo to watch nearby pixels quietly orbit around their original positions.
+        </p>
+      </div>
+
+      <section class="display" aria-label="Interactive logo example">
+        <span class="corner corner-tl" aria-hidden="true"></span>
+        <span class="corner corner-tr" aria-hidden="true"></span>
+        <span class="corner corner-bl" aria-hidden="true"></span>
+        <span class="corner corner-br" aria-hidden="true"></span>
+
+        <div class="logo-frame" id="logo-frame">
+          <img id="brand-logo" src="../../src/assets/images/brand/Site-Logo-Light.svg" width="1280" height="352"
+            alt="Patel Pragnesh" draggable="false" />
+          <canvas id="logo-canvas" aria-hidden="true"></canvas>
+        </div>
+
+        <div class="display-bottom" aria-hidden="true">
+          <span>MOVE TO EXPLORE</span>
+          <span class="display-line"></span>
+          <span>01 / 01</span>
+        </div>
+      </section>
+
+      <p class="interaction-note">
+        <span class="note-dot" aria-hidden="true"></span>
+        Desktop mouse interaction · Static on touch devices
+      </p>
+    </main>
+
+    <footer class="footer">
+      <span>PATEL PRAGNESH <span class="footer-muted">/ MOTION REFERENCE</span></span>
+      <span>SVG → CANVAS → CURSOR</span>
+    </footer>
+  </div>
+
+  <script type="module" src="./main.js"></script>
+</body>
+
+</html>
