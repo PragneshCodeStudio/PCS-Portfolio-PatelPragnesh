@@ -6,11 +6,13 @@ import Contact from './pages/Contact/Contact'
 import NotFound from './pages/NotFound/NotFound'
 import PortfolioLayout from './components/layout/PortfolioLayout'
 import ScrollToTop from './components/layout/ScrollToTop'
+import PointerBurst from './components/ui/PointerBurst'
 
 const App = () => {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <PointerBurst />
       <Routes>
         <Route element={<PortfolioLayout />}>
           <Route path="/" element={<Home />} />
